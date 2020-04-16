@@ -43,7 +43,7 @@ module.exports = Event.extend(function Base(container, config) {
     var cfg = this.mergeConfig(config);
 
 
-    var html = `<div id="certify" style="height:427px;overflow:hidden"><div class="swiper-container" style="height:427px;"><div class="swiper-wrapper" style="height:427px;">`
+    var html = `<div id="certify" style="height:427px;overflow:hidden;"><div class="swiper-container" style="height:427px;"><div class="swiper-wrapper" style="height:427px;">`
     
     for (i = 0; i < data.length; i++) { 
       html += `<div class="swiper-slide swiper-slide-defined" id="${data[i]['id']}">`
@@ -64,21 +64,13 @@ module.exports = Event.extend(function Base(container, config) {
      this.emit('itemClick', params);            // data必须为一个对象，而不是一个简单值，属性名即为变量名。
    })
 
+    
     this.container.find(".swiper-slide").css({
-      // width:"583px",
-      // height:"127px",
-      // background:"rgba(38,186,241,0.55)",
-      // border:"1px solid rgba(38,186,241,1)",
-      // boxShadow:"0px 0px 70px 0px rgba(0,216,255,0.16)",
-      // marginBottom:"29px",
-      // position:"relative",
-      // padding:"14px"
-      width:"583px",
       height:"127px",
       background:"rgba(38,186,241,0.3)",
-      border:"1px solid rgba(38,186,241,1)",
-      boxShadow:"0px 0px 35px 0px rgba(0,252,255,0.55)"
+      boxShadow:"0px 0px 20px 0px rgba(0,252,255,0.55)"
     })
+    
 
     let that = this;
     new Swiper('#certify .swiper-container', {
@@ -87,13 +79,9 @@ module.exports = Event.extend(function Base(container, config) {
     centeredSlides: true,
     direction: 'vertical',
     loop: true, 
-    autoplay: true,
-    loopedSlides: 5,
-    autoplay: true,
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
+    autoplay: false,
+    loopedSlides: 3,
+    slideActiveClass : 'my-slide-duplicate-active',
     pagination: {
       el: '.swiper-pagination',
       //clickable :true,
@@ -108,8 +96,16 @@ module.exports = Event.extend(function Base(container, config) {
         }
       },
       slideChangeTransitionStart: function(){
-        console.log(that.container.find(".swiper-slide-duplicate-active").find(".tittle").text());
-        
+        // console.log(that.container.find(".my-slide-duplicate-active").find(".tittle").text());
+        that.container.find(".swiper-slide").css({
+          height:"127px",
+          background:"rgba(38,186,241,0.3)",
+          boxShadow:"0px 0px 20px 0px rgba(0,252,255,0.55)"
+        })
+        that.container.find(".my-slide-duplicate-active").css({
+          background:"rgba(38,186,241,0.5)",
+          boxShadow:"0px 0px 15px 0px rgba(0,216,255,0.55)"
+        })
       },
     },
     
