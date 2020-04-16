@@ -43,7 +43,7 @@ module.exports = Event.extend(function Base(container, config) {
     var cfg = this.mergeConfig(config);
 
 
-    var html = `<div id="certify" style="height:427px;overflow:hidden;"><div class="swiper-container" style="height:427px;"><div class="swiper-wrapper" style="height:427px;">`
+    var html = `<div id="certify" style="height:427px;overflow:hidden;padding:0 10px;"><div class="swiper-container" style="height:427px;"><div class="swiper-wrapper" style="height:427px;">`
     
     for (i = 0; i < data.length; i++) { 
       html += `<div class="swiper-slide swiper-slide-defined" id="${data[i]['id']}">`
@@ -79,7 +79,7 @@ module.exports = Event.extend(function Base(container, config) {
     centeredSlides: true,
     direction: 'vertical',
     loop: true, 
-    autoplay: false,
+    autoplay: true,
     loopedSlides: 3,
     slideActiveClass : 'my-slide-duplicate-active',
     pagination: {
@@ -88,6 +88,7 @@ module.exports = Event.extend(function Base(container, config) {
     },
     on: {
       progress: function (progress) {
+       
         for (i = 0; i < this.slides.length; i++) {
           var slide = this.slides.eq(i);
           var slideProgress = this.slides[i].progress;
