@@ -65,14 +65,19 @@ module.exports = Event.extend(function Base(container, config) {
    })
 
     this.container.find(".swiper-slide").css({
+      // width:"583px",
+      // height:"127px",
+      // background:"rgba(38,186,241,0.55)",
+      // border:"1px solid rgba(38,186,241,1)",
+      // boxShadow:"0px 0px 70px 0px rgba(0,216,255,0.16)",
+      // marginBottom:"29px",
+      // position:"relative",
+      // padding:"14px"
       width:"583px",
       height:"127px",
-      background:"rgba(38,186,241,0.55)",
+      background:"rgba(38,186,241,0.3)",
       border:"1px solid rgba(38,186,241,1)",
-      // boxShadow:"0px 0px 70px 0px rgba(0,216,255,0.16)",
-      marginBottom:"29px",
-      position:"relative",
-      padding:"14px"
+      boxShadow:"0px 0px 35px 0px rgba(0,252,255,0.55)"
     })
 
     let that = this;
