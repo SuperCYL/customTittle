@@ -43,7 +43,8 @@ module.exports = Event.extend(function Base(container, config) {
     var cfg = this.mergeConfig(config);
 
 
-    var html = `<div id="certify" style="height:427px;overflow:hidden;padding:0 10px;"><div class="swiper-container" style="height:427px;"><div class="swiper-wrapper" style="height:427px;">`
+    var html = `<div id="certify">
+    <div class="swiper-container" style="height:427px;overflow:hidden;padding:0 10px;"><div class="swiper-wrapper">`
     
     for (i = 0; i < data.length; i++) { 
       html += `<div class="swiper-slide swiper-slide-defined" id="${data[i]['id']}">`
@@ -66,7 +67,7 @@ module.exports = Event.extend(function Base(container, config) {
 
     
     this.container.find(".swiper-slide").css({
-      height:"127px",
+      height:"150px",
       background:"rgba(38,186,241,0.3)",
       boxShadow:"0px 0px 20px 0px rgba(0,252,255,0.55)"
     })
@@ -99,7 +100,7 @@ module.exports = Event.extend(function Base(container, config) {
       slideChangeTransitionStart: function(){
         // console.log(that.container.find(".my-slide-duplicate-active").find(".tittle").text());
         that.container.find(".swiper-slide").css({
-          height:"127px",
+          height:"150px",
           background:"rgba(38,186,241,0.3)",
           boxShadow:"0px 0px 20px 0px rgba(0,252,255,0.55)"
         })
