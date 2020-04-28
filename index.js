@@ -1,11 +1,14 @@
 var Event = require('bcore/event');
 var $ = require('jquery');
 var _ = require('lodash');
+
+require('./swiper.min.css');
+require('./index.css');
+var Swiper = require('./swiper');
 //var Chart = require('XXX');
 /**
  * swiper
  * */
-var Swiper = require('swiper');
 /**
  * 马良基础类
  */
@@ -30,7 +33,7 @@ module.exports = Event.extend(function Base(container, config) {
     //3.子组件实例化
     //this.chart = new Chart(this.container[0], this.config);
     //4.如果有需要, 更新样式
-    this.updateStyle();
+    
   },
   /**
    * 绘制
@@ -41,88 +44,47 @@ module.exports = Event.extend(function Base(container, config) {
   render: function (data, config) {
     data = this.data(data);
     var cfg = this.mergeConfig(config);
+    //如果有需要的话,更新样式
 
+    var html = `
+    <div id="certify" style="height:100%;">
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">Slide 1</div>
+          <div class="swiper-slide">Slide 2</div>
+          <div class="swiper-slide">Slide 3</div>
+          <div class="swiper-slide">Slide 4</div>
+          <div class="swiper-slide">Slide 5</div>
+          <div class="swiper-slide">Slide 6</div>
+          <div class="swiper-slide">Slide 7</div>
+          <div class="swiper-slide">Slide 8</div>
+          <div class="swiper-slide">Slide 9</div>
+          <div class="swiper-slide">Slide 10</div>
+        </div>
+      <!-- Add Pagination -->
+      <div class="swiper-pagination"></div>
+    </div>
+    </div>`
 
-    var html = `<div id="certify">
-    <div class="swiper-container" style="height:427px;overflow:hidden;padding:0 10px;"><div class="swiper-wrapper">`
-    
-    for (i = 0; i < data.length; i++) { 
-      html += `<div class="swiper-slide swiper-slide-defined" id="${data[i]['id']}">`
-      html += `<img src=${data[i]['image']} style='width:158px;height:102px;' />`
-      html += `<p class="tittle" style="position:absolute;left:186px;top:6px;">${data[i]['value']}</p>`
-      html += `<span style="position:absolute;left:186px;bottom:6px;">2019/2/2</span>`
-      html += `<span style="position:absolute;right:14px;bottom:6px;">35345</span>`
-      html += `</div>`
-    }
-   html += `</div></div></div>`
-   this.container.html(html);
+    this.container.html(html);
 
-   $(".swiper-slide-defined").on('click', (obj) => {
-     var params = {
-      id:$(obj)[0]["target"]["id"]
-     }
-     console.log(params);
-     this.emit('itemClick', params);            // data必须为一个对象，而不是一个简单值，属性名即为变量名。
-   })
-
-    
-    this.container.find(".swiper-slide").css({
-      height:"150px",
-      background:"rgba(38,186,241,0.3)",
-      boxShadow:"0px 0px 20px 0px rgba(0,252,255,0.55)"
-    })
-    
-
-    let that = this;
     new Swiper('#certify .swiper-container', {
-    watchSlidesProgress: true,
-    slidesPerView: 'auto',
-    centeredSlides: true,
-    direction: 'vertical',
-    loop: true, 
-    autoplay: true,
-    loopedSlides: 3,
-    slideActiveClass : 'my-slide-duplicate-active',
-    pagination: {
-      el: '.swiper-pagination',
-      //clickable :true,
-    },
-    on: {
-      progress: function (progress) {
-       
-        for (i = 0; i < this.slides.length; i++) {
-          var slide = this.slides.eq(i);
-          var slideProgress = this.slides[i].progress;
-          scale = 1 - Math.abs(slideProgress) / 4;
-          slide.transform('scale(' + scale + ')');
-        }
+      slidesPerView: 3,
+      spaceBetween: 30,
+      centeredSlides: true,
+      direction: 'vertical',
+      autoplay: true,
+	    loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
       },
-      slideChangeTransitionStart: function(){
-        // console.log(that.container.find(".my-slide-duplicate-active").find(".tittle").text());
-        that.container.find(".swiper-slide").css({
-          height:"150px",
-          background:"rgba(38,186,241,0.3)",
-          boxShadow:"0px 0px 20px 0px rgba(0,252,255,0.55)"
-        })
-        that.container.find(".my-slide-duplicate-active").css({
-          background:"rgba(38,186,241,0.5)",
-          boxShadow:"0px 0px 15px 0px rgba(0,216,255,0.55)"
-        })
-      },
-    },
-    
+    });
 
-  })
-
-  
-  
-
-   
     //更新图表
     //this.chart.render(data, cfg);
-    
-    //如果有需要的话,更新样式
     this.updateStyle();
+    
   },
   /**
    *
@@ -186,7 +148,9 @@ module.exports = Event.extend(function Base(container, config) {
       'font-size': cfg.size + 'px',
       'color': cfg.color || '#fff'
     });
+    
   },
+  
   /**
    * 更新配置
    * !!注意:如果render支持第二个参数options, 那updateOptions不是必须的
