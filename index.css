@@ -68,3 +68,8 @@ html, body {
     bottom:20px;
     right:30px;
   }
+  .hot-icon{
+    position: absolute;
+    bottom:20px;
+    right:50px;
+  }

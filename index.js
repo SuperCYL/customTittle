@@ -45,13 +45,14 @@ module.exports = Event.extend(function Base(container, config) {
     data = this.data(data);
     var cfg = this.mergeConfig(config);
     //如果有需要的话,更新样式
-
+    let that = this;
     var html = `<div id="certify" style="height:100%;"><div class="swiper-container"><div class="swiper-wrapper">`
       for(var i =0;i<data.length;i++){
-        html+=`<div class="swiper-slide">`
+        html+=`<div class="swiper-slide" eventId="${data[i]["eventId"]}">`
         html+= `<img class="eventCover" src="${data[i]["eventCover"]}" />`
         html+= `<p class="eventName">${data[i]["eventName"]}</p>`
         html+= `<p class="eventTime">${data[i]["eventTime"]}</p>`
+        html+=`<img class="hot-icon" src="http://datav.oss-cn-hangzhou.aliyuncs.com/uploads/images/a0a96edce5c10f3c3447a6e2e7cc764f.png" />`
         html+=`<span class="relatedDepartmentCount">${data[i]["relatedDepartmentCount"]}</span>`
         html+=`</div>`
       }
@@ -70,6 +71,17 @@ module.exports = Event.extend(function Base(container, config) {
       pagination: {
         el: '.swiper-pagination',
         clickable: true,
+      },
+      on:{
+        slideChangeTransitionStart: function(){
+          var eventId = $(".swiper-slide-active").attr("eventId");
+          console.log(eventId)
+          for(var i = 0;i<data.length;i++){
+            if(eventId == data[i]["eventId"]){
+              that.emit('rollEvent', {item:data[i]});
+            }
+          }
+        },
       },
     });
 
